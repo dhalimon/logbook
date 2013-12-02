@@ -15,12 +15,14 @@ import com.bsteam.logbook.fragments.ShowTasksFragment;
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener, OnAddTaskSelectedListener {
 
+	public FragmentCommunicator fragmentCommunicator;
+	
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
 
 	private String[] tabs = { "Add Task", "Show Tasks" };
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,27 +42,27 @@ public class MainActivity extends FragmentActivity implements
 			actionBar.addTab(actionBar.newTab().setText(tab_name)
 					.setTabListener(this));
 		}
-		
+
 		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-			
+
 			@Override
 			public void onPageSelected(int position) {
 				// TODO Auto-generated method stub
 				// on changing the page
-                // make respected tab selected
-                actionBar.setSelectedNavigationItem(position);
+				// make respected tab selected
+				actionBar.setSelectedNavigationItem(position);
 			}
-			
+
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 
@@ -97,11 +99,31 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	public void onTaskSaved() {
 		// TODO Auto-generated method stub
-		
-		ShowTasksFragment showTasksFrag = (ShowTasksFragment)
-		getSupportFragmentManager().findFragmentById(R.layout.frg_showtasks);
-		
-		showTasksFrag.UpdateList(showTasksFrag.getView());
-	}
 
+		ShowTasksFragment showTasksFrag = (ShowTasksFragment) getSupportFragmentManager()
+				.findFragmentById(R.layout.frg_showtasks);
+		if (showTasksFrag != null) {
+
+			showTasksFrag.UpdateList(showTasksFrag.getView());
+		} else {
+			// Otherwise, we're in the one-pane layout and must swap frags...
+
+			// Create fragment and give it an argument for the selected article
+			ShowTasksFragment newFragment = new ShowTasksFragment();
+			Bundle args = new Bundle();
+			
+
+			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+			// Replace whatever is in the fragment_container view with this
+			// fragment,
+			// and add the transaction to the back stack so the user can
+			// navigate back
+			transaction.replace(R.id.fragment_container, newFragment);
+			transaction.addToBackStack(null);
+
+			// Commit the transaction
+			transaction.commit();
+		}
+	}
 }
