@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import com.bsteam.logbook.fragments.AddTaskFragment.OnAddTaskSelectedListener;
+import com.bsteam.logbook.fragments.ShowTasksFragment;
 
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener, OnAddTaskSelectedListener {
@@ -96,7 +97,11 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	public void onTaskSaved() {
 		// TODO Auto-generated method stub
+		
+		ShowTasksFragment showTasksFrag = (ShowTasksFragment)
 		getSupportFragmentManager().findFragmentById(R.layout.frg_showtasks);
+		
+		showTasksFrag.UpdateList(showTasksFrag.getView());
 	}
 
 }
