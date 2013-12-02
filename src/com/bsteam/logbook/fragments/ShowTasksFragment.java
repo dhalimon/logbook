@@ -9,9 +9,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.bsteam.logbook.data.*;
 
@@ -47,7 +47,7 @@ public class ShowTasksFragment extends Fragment {
 			// "TaskName", "TaskDate", "TaskId"
 			HashMap<String, String> temp2 = new HashMap<String, String>();
 			temp2.put("TaskName", task.TaskType);
-			temp2.put("TaskDate", task.TaskDate.toString());
+			temp2.put("TaskDate", task.TaskDate.toLocaleString());
 			list.add(temp2);
 		}
 
@@ -55,7 +55,8 @@ public class ShowTasksFragment extends Fragment {
 
 			SimpleAdapter adapter = new SimpleAdapter(getActivity(), list,
 					R.layout.custom_listview_row, new String[] { "TaskName",
-							"TaskDate" }, new int[] { R.id.text1, R.id.text2 }
+							"TaskDate" }, new int[] { R.id.firstLine,
+							R.id.secondLine }
 
 			);
 
@@ -63,6 +64,8 @@ public class ShowTasksFragment extends Fragment {
 					.findViewById(R.id.listView1);
 
 			listview.setAdapter(adapter);
+		} else {
+			
 		}
 
 	}

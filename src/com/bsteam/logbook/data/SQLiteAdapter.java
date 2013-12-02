@@ -89,7 +89,7 @@ public class SQLiteAdapter extends SQLiteOpenHelper {
 						Date date = formatter.parse(cursor.getString(cursor
 								.getColumnIndex(colDate)));
 						t.TaskDate = date;
-						t.TaskDate = new Date();
+
 						taskList.add(t);
 					} while (cursor.moveToNext());
 				}

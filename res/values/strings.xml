@@ -7,5 +7,6 @@
     <string name="save_task_btn">Save</string>
     <string name="show_tasks">Show Tasks</string>
     <string name="record_snd">Record</string>
+    <string name="no_data_show_frg">There\'s nothing to see here! Sorry!</string>
 
 </resources>
