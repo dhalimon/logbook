@@ -5,10 +5,8 @@ import java.util.List;
 
 import com.bsteam.logbook.R;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -64,36 +62,6 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener,
 	}
 
 	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-			// Populate the wordsList with the String values the recognition
-			// engine thought it heard
-			ArrayList<String> matches = data
-					.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-
-			
-
-			listDialog = new Dialog(getActivity());
-			listDialog.setTitle("Did you mean this? ");
-			LayoutInflater li = (LayoutInflater) getActivity()
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			View v = li.inflate(R.layout.list, null, false);
-			listDialog.setContentView(v);
-			listDialog.setCancelable(true);
-			// there are a lot of settings, for dialog, check them all out!
-
-			wordList = (ListView) listDialog.findViewById(R.id.listview);
-			wordList.setOnItemClickListener(this);
-			wordList.setAdapter(new ArrayAdapter<String>(getActivity(),
-					android.R.layout.simple_list_item_1, matches));
-			// now that the dialog is set up, it's time to show it
-			listDialog.show();
-
-		}
-		super.onActivityResult(requestCode, resultCode, data);
-	}
-
-	@Override
 	public void onClick(View v) {
 		// unified click event for all event handlers in Frag 1
 		switch (v.getId()) {
@@ -131,12 +99,41 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener,
 	}
 
 	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+			// Populate the wordsList with the String values the recognition
+			// engine thought it heard
+			ArrayList<String> matches = data
+					.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+			listDialog = new Dialog(getActivity());
+			listDialog.setTitle("Did you mean this? ");
+			LayoutInflater li = (LayoutInflater) getActivity()
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			View v = li.inflate(R.layout.dialog_list, null, false);
+			listDialog.setContentView(v);
+			listDialog.setCancelable(true);
+			// there are a lot of settings, for dialog, check them all out!
+
+			wordList = (ListView) listDialog.findViewById(R.id.DialogList);
+			wordList.setOnItemClickListener(this);
+			wordList.setAdapter(new ArrayAdapter<String>(getActivity(),
+					android.R.layout.simple_list_item_1, matches));
+			// now that the dialog is set up, it's time to show it
+			listDialog.show();
+
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
 		// TODO Auto-generated method stub
 		String UserExpenditure = wordList.getItemAtPosition(pos).toString();
 		EditText taskNameBox = (EditText) getView().findViewById(
 				R.id.saveTextBox);
 		taskNameBox.setText(UserExpenditure);
+		listDialog.dismiss();
 	}
 
 }

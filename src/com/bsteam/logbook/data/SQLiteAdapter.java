@@ -69,8 +69,7 @@ public class SQLiteAdapter extends SQLiteOpenHelper {
 		Cursor cursor;
 
 		try {
-			String query = "SELECT * FROM " + tblTask + "order by " + colDate
-					+ " desc";
+			String query = "SELECT * FROM " + tblTask;
 			cursor = db.rawQuery(query, null);
 
 			TaskType t = null;
