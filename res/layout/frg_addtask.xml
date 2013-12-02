@@ -4,41 +4,51 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="58dp"
-        android:paddingLeft="20dp"
-        android:text="@string/add_task"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="50sp" 
-        />
-
     <Button
-        android:id="@+id/TaskSave"
+        android:id="@+id/TaskSaveBtn"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/TaskName"
+        android:layout_alignLeft="@+id/RecordSndBtn"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/TaskName"
-        android:layout_marginBottom="130dp"
-        android:textSize="25sp"
-        android:text="@string/save_task_btn" />
+        android:layout_alignRight="@+id/RecordSndBtn"
+        android:layout_marginBottom="52dp"
+        android:text="@string/save_task_btn"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/RecordSndBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/TaskSaveBtn"
+        android:layout_alignLeft="@+id/saveTextBox"
+        android:layout_alignRight="@+id/saveTextBox"
+        android:layout_marginBottom="36dp"
+        android:text="@string/record_snd"
+        android:textSize="25sp" />
 
     <EditText
-        android:id="@+id/TaskName"
+        android:id="@+id/saveTextBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:ems="10" >
+        android:ems="10"
+        android:inputType="textMultiLine" >
 
         <requestFocus />
     </EditText>
+
+    <TextView
+        android:id="@+id/TitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:paddingLeft="20dp"
+        android:text="@string/add_task"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50sp" />
 
 </RelativeLayout>
