@@ -1,6 +1,7 @@
 package com.bsteam.logbook.fragments;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.bsteam.logbook.data.*;
 
@@ -34,26 +36,33 @@ public class ShowTasksFragment extends Fragment {
 		return rootView;
 	}
 
-	
 	public void UpdateList(View rootView) {
 		SQLiteAdapter db = new SQLiteAdapter(getActivity());
 
 		List<TaskType> tasks = db.getAllTasks();
+
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+
+		for (TaskType task : tasks) {
+			// "TaskName", "TaskDate", "TaskId"
+			HashMap<String, String> temp2 = new HashMap<String, String>();
+			temp2.put("TaskName", task.TaskType);
+			temp2.put("TaskDate", task.TaskDate.toString());
+			list.add(temp2);
+		}
+
 		if (tasks.size() > 0) {
-			ArrayList<String> taskNameList = new ArrayList<String>();
 
-			for (TaskType task : tasks) {
+			SimpleAdapter adapter = new SimpleAdapter(getActivity(), list,
+					R.layout.custom_listview_row, new String[] { "TaskName",
+							"TaskDate" }, new int[] { R.id.text1, R.id.text2 }
 
-				taskNameList.add(task.TaskType);
-			}
+			);
 
 			ListView listview = (ListView) rootView
 					.findViewById(R.id.listView1);
 
-			ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-					getActivity(), android.R.layout.simple_list_item_1,
-					taskNameList);
-			listview.setAdapter(arrayAdapter);
+			listview.setAdapter(adapter);
 		}
 
 	}
