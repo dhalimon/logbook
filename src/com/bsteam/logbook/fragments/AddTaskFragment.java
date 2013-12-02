@@ -79,6 +79,7 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener,
 			if (db.insertTask(taskType)) {
 				Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_LONG)
 						.show();
+				taskNameBox.setText("");
 
 			} else {
 				Toast.makeText(getActivity(), "Some thing's wrong!",
