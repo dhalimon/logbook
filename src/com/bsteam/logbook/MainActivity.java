@@ -9,13 +9,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
-import com.bsteam.logbook.fragments.AddTaskFragment.OnAddTaskSelectedListener;
-import com.bsteam.logbook.fragments.ShowTasksFragment;
+
 
 public class MainActivity extends FragmentActivity implements
-		ActionBar.TabListener, OnAddTaskSelectedListener {
+		ActionBar.TabListener {
 
-	public FragmentCommunicator fragmentCommunicator;
+
 	
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
@@ -96,34 +95,5 @@ public class MainActivity extends FragmentActivity implements
 
 	}
 
-	@Override
-	public void onTaskSaved() {
-		// TODO Auto-generated method stub
-
-		ShowTasksFragment showTasksFrag = (ShowTasksFragment) getSupportFragmentManager()
-				.findFragmentById(R.layout.frg_showtasks);
-		if (showTasksFrag != null) {
-
-			showTasksFrag.UpdateList(showTasksFrag.getView());
-		} else {
-			// Otherwise, we're in the one-pane layout and must swap frags...
-
-			// Create fragment and give it an argument for the selected article
-			ShowTasksFragment newFragment = new ShowTasksFragment();
-			Bundle args = new Bundle();
-			
-
-			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-			// Replace whatever is in the fragment_container view with this
-			// fragment,
-			// and add the transaction to the back stack so the user can
-			// navigate back
-			transaction.replace(R.id.fragment_container, newFragment);
-			transaction.addToBackStack(null);
-
-			// Commit the transaction
-			transaction.commit();
-		}
-	}
+	
 }
