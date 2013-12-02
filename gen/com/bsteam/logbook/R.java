@@ -27,8 +27,9 @@ public final class R {
         public static final int RecordSndBtn=0x7f080002;
         public static final int TaskSaveBtn=0x7f080001;
         public static final int TitleTextView=0x7f080004;
-        public static final int action_settings=0x7f080007;
+        public static final int action_settings=0x7f080008;
         public static final int listView1=0x7f080006;
+        public static final int listview=0x7f080007;
         public static final int pager=0x7f080000;
         public static final int saveTextBox=0x7f080003;
         public static final int textView1=0x7f080005;
@@ -37,6 +38,7 @@ public final class R {
         public static final int activity_main=0x7f030000;
         public static final int frg_addtask=0x7f030001;
         public static final int frg_showtasks=0x7f030002;
+        public static final int list=0x7f030003;
     }
     public static final class menu {
         public static final int main=0x7f070000;

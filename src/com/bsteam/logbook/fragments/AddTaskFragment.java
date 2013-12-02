@@ -5,6 +5,10 @@ import java.util.List;
 
 import com.bsteam.logbook.R;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -14,16 +18,24 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bsteam.logbook.data.*;
 
-public class AddTaskFragment extends Fragment implements View.OnClickListener {
+public class AddTaskFragment extends Fragment implements View.OnClickListener,
+		OnItemClickListener {
 
 	private static final int REQUEST_CODE = 1234;
-	private static final int RESULT_OK = 0;
+	private static final int RESULT_OK = -1;
+
+	ListView wordList;
+	Dialog listDialog;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,23 +71,24 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
 			ArrayList<String> matches = data
 					.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-			EditText taskNameBox = (EditText) getView().findViewById(
-					R.id.saveTextBox);
-
-			taskNameBox.setText(matches.get(0));
 			
-			/*
-			 * wordsList.setAdapter(new ArrayAdapter<String>(this,
-			 * android.R.layout.simple_list_item_1, matches)); wordsList
-			 * .setOnItemClickListener(new ListView.OnItemClickListener() {
-			 * 
-			 * @Override public void onItemClick(AdapterView<?> a, View v, int
-			 * pos, long l) { try { String UserExpenditure = wordsList
-			 * .getItemAtPosition(pos).toString();
-			 * Toast.makeText(getApplicationContext(), UserExpenditure,
-			 * Toast.LENGTH_LONG) .show(); } catch (Exception e) { System.out
-			 * .println("cannot get the selected index"); } } });
-			 */
+
+			listDialog = new Dialog(getActivity());
+			listDialog.setTitle("Did you mean this? ");
+			LayoutInflater li = (LayoutInflater) getActivity()
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			View v = li.inflate(R.layout.list, null, false);
+			listDialog.setContentView(v);
+			listDialog.setCancelable(true);
+			// there are a lot of settings, for dialog, check them all out!
+
+			wordList = (ListView) listDialog.findViewById(R.id.listview);
+			wordList.setOnItemClickListener(this);
+			wordList.setAdapter(new ArrayAdapter<String>(getActivity(),
+					android.R.layout.simple_list_item_1, matches));
+			// now that the dialog is set up, it's time to show it
+			listDialog.show();
+
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
@@ -109,11 +122,21 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
 			Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 			intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
 					RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-			intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Add An Entry...");
+			intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+					"What did you do today?");
 			startActivityForResult(intent, REQUEST_CODE);
 			break;
 		}
 
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+		// TODO Auto-generated method stub
+		String UserExpenditure = wordList.getItemAtPosition(pos).toString();
+		EditText taskNameBox = (EditText) getView().findViewById(
+				R.id.saveTextBox);
+		taskNameBox.setText(UserExpenditure);
 	}
 
 }
