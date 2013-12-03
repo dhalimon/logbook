@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical" >
 
     <Button
@@ -12,9 +13,19 @@
         android:layout_alignRight="@+id/saveTextBox"
         android:layout_below="@+id/saveTextBox"
         android:layout_marginTop="59dp"
-        android:drawablePadding="10sp"
-        android:drawableTop="@drawable/rec"
+        android:drawableLeft="@drawable/rec"
         android:text="@string/record_snd" />
+
+    <Button
+        android:id="@+id/TaskSaveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/RecordSndBtn"
+        android:layout_alignRight="@+id/RecordSndBtn"
+        android:layout_below="@+id/RecordSndBtn"
+        android:layout_marginTop="30dp"
+        android:drawableLeft="@drawable/save"
+        android:text="@string/save_task_btn" />
 
     <EditText
         android:id="@+id/saveTextBox"
@@ -28,18 +39,5 @@
 
         <requestFocus />
     </EditText>
-
-    <Button
-        android:id="@+id/TaskSaveBtn"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/RecordSndBtn"
-        android:layout_alignRight="@+id/RecordSndBtn"
-        android:layout_below="@+id/RecordSndBtn"
-        android:layout_marginTop="30dp"
-        android:drawablePadding="10sp"
-        android:drawableTop="@drawable/save"
-        android:text="@string/save_task_btn" />
 
 </RelativeLayout>

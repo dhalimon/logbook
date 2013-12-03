@@ -36,6 +36,14 @@ public class ShowTasksFragment extends Fragment {
 		return rootView;
 	}
 
+	public boolean areAllItemsEnabled() {
+		return false;
+	}
+
+	public boolean isEnabled(int position) {
+		return false;
+	}
+
 	public void UpdateList(View rootView) {
 		SQLiteAdapter db = new SQLiteAdapter(getActivity());
 
@@ -65,7 +73,7 @@ public class ShowTasksFragment extends Fragment {
 
 			listview.setAdapter(adapter);
 		} else {
-			
+
 		}
 
 	}
